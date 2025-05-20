@@ -1,62 +1,45 @@
 package com.prueba.demo.modelo;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Date;
 
 @Entity
-@Table(name = "consultas")
 public class Consulta {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDate fecha;
+    
+    private Date fecha;
+    private String hora;
     private String motivo;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    private String diagnostico;
+    private String tratamiento;
+    
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
-    public Consulta() {}
-
-    public Consulta(LocalDate fecha, String motivo, Paciente paciente, Medico medico) {
-        this.fecha = fecha;
-        this.motivo = motivo;
-        this.paciente = paciente;
-        this.medico = medico;
-    }
-
+    // Getters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
-
+    public Date getFecha() { return fecha; }
+    public String getHora() { return hora; }
     public String getMotivo() { return motivo; }
-    public void setMotivo(String motivo) { this.motivo = motivo; }
-
+    public String getDiagnostico() { return diagnostico; }
+    public String getTratamiento() { return tratamiento; }
     public Paciente getPaciente() { return paciente; }
-    public void setPaciente(Paciente paciente) { this.paciente = paciente; }
-
     public Medico getMedico() { return medico; }
+
+    // Setters (importantes para la actualización)
+    public void setId(Long id) { this.id = id; }
+    public void setFecha(Date fecha) { this.fecha = fecha; }
+    public void setHora(String hora) { this.hora = hora; }
+    public void setMotivo(String motivo) { this.motivo = motivo; }
+    public void setDiagnostico(String diagnostico) { this.diagnostico = diagnostico; }
+    public void setTratamiento(String tratamiento) { this.tratamiento = tratamiento; }
+    public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setMedico(Medico medico) { this.medico = medico; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Consulta)) return false;
-        Consulta that = (Consulta) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

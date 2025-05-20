@@ -8,28 +8,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class ConsultaServicio {
-    
-private final ConsultaRepositorio repository;
 
-    public ConsultaServicio(ConsultaRepositorio repository) {
-        this.repository = repository;
+    private final ConsultaRepositorio consultaRepositorio;
+
+    public ConsultaServicio(ConsultaRepositorio consultaRepositorio) {
+        this.consultaRepositorio = consultaRepositorio;
     }
 
     public List<Consulta> listar() {
-        return repository.findAll();
+        return consultaRepositorio.findAll();
     }
 
     public Optional<Consulta> obtenerPorId(Long id) {
-        return repository.findById(id);
+        return consultaRepositorio.findById(id);
     }
 
     public Consulta guardar(Consulta consulta) {
-        return repository.save(consulta);
+        return consultaRepositorio.save(consulta);
     }
 
     public void eliminar(Long id) {
-        repository.deleteById(id);
+        consultaRepositorio.deleteById(id);
     }
 }

@@ -26,6 +26,21 @@ public class MedicoServicio {
         return medicoRepositorio.save(medico);
     }
 
+    public Medico actualizar(Long id, Medico medicoActualizado) {
+        return medicoRepositorio.findById(id)
+                .map(medico -> {
+                    medico.setNombre(medicoActualizado.getNombre());
+                    medico.setEspecialidad(medicoActualizado.getEspecialidad());
+                    medico.setCorreo(medicoActualizado.getCorreo());
+                    medico.setTelefono(medicoActualizado.getTelefono());
+                    return medicoRepositorio.save(medico);
+                })
+                .orElseGet(() -> {
+                    medicoActualizado.setId(id);
+                    return medicoRepositorio.save(medicoActualizado);
+                });
+    }
+
     public void eliminar(Long id) {
         medicoRepositorio.deleteById(id);
     }

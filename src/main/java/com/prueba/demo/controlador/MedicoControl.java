@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/medicos")
+@RequestMapping("/medicos")
 public class MedicoControl {
 
     @Autowired
@@ -28,6 +29,11 @@ public class MedicoControl {
     @PostMapping
     public Medico guardar(@RequestBody Medico medico) {
         return medicoServicio.guardar(medico);
+    }
+
+    @PutMapping("/{id}")
+    public Medico actualizar(@PathVariable Long id, @RequestBody Medico medicoActualizado) {
+        return medicoServicio.actualizar(id, medicoActualizado);
     }
 
     @DeleteMapping("/{id}")
